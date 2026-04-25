@@ -1,0 +1,81 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.ncy"
+4    android:versionCode="2"
+5    android:versionName="1.2" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="29"
+9        android:targetSdkVersion="34" />
+10
+11    <application
+11-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:4:5-42:19
+12        android:allowBackup="true"
+12-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:5:9-35
+13        android:debuggable="true"
+14        android:extractNativeLibs="false"
+15        android:icon="@mipmap/ic_launcher"
+15-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:8:9-43
+16        android:label="N-Cy"
+16-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:6:9-29
+17        android:supportsRtl="true"
+17-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:7:9-35
+18        android:theme="@style/Tema.NCy" >
+18-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:9:9-40
+19        <activity
+19-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:11:9-19:20
+20            android:name="com.ncy.MainActivity"
+20-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:12:13-41
+21            android:exported="true"
+21-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:13:13-36
+22            android:label="N-Cy" >
+22-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:14:13-33
+23            <intent-filter>
+23-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:15:13-18:29
+24                <action android:name="android.intent.action.MAIN" />
+24-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:16:17-69
+24-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:16:25-66
+25
+26                <category android:name="android.intent.category.LAUNCHER" />
+26-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:17:17-77
+26-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:17:27-74
+27            </intent-filter>
+28        </activity>
+29        <activity
+29-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:21:9-26:47
+30            android:name="com.ncy.SettingsActivity"
+30-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:22:13-45
+31            android:exported="false"
+31-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:23:13-37
+32            android:label="Configuraciones"
+32-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:24:13-44
+33            android:theme="@style/Tema.NCy" />
+33-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:26:13-44
+34
+35        <service
+35-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:29:9-40:19
+36            android:name="com.ncy.servicio.ServicioTeclado"
+36-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:30:13-53
+37            android:exported="true"
+37-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:33:13-36
+38            android:label="N-Cy"
+38-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:31:13-33
+39            android:permission="android.permission.BIND_INPUT_METHOD" >
+39-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:32:13-70
+40            <intent-filter>
+40-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:34:13-36:29
+41                <action android:name="android.view.InputMethod" />
+41-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:35:17-67
+41-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:35:25-64
+42            </intent-filter>
+43
+44            <meta-data
+44-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:37:13-39:50
+45                android:name="android.view.im"
+45-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:38:17-47
+46                android:resource="@xml/method" />
+46-->F:\PROYESTOS MARCO\MI_NCY\app\src\main\AndroidManifest.xml:39:17-47
+47        </service>
+48    </application>
+49
+50</manifest>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<teclado>
+    <row>
+        <key key0="😀" />
+        <key key0="😂" />
+        <key key0="😍" />
+        <key key0="🥺" />
+        <key key0="😎" />
+        <key key0="😭" />
+        <key key0="🙏" />
+        <key key0="👍" />
+        <key key0="❤️" />
+        <key key0="🔥" />
+    </row>
+    <row>
+        <key key0="😅" />
+        <key key0="🤣" />
+        <key key0="😊" />
+        <key key0="🤔" />
+        <key key0="😴" />
+        <key key0="🤯" />
+        <key key0="😤" />
+        <key key0="🥳" />
+        <key key0="😬" />
+        <key key0="👀" />
+    </row>
+    <row>
+        <key key0="abc" peso="2" />
+        <key key0="👋" />
+        <key key0="💀" />
+        <key key0="✅" />
+        <key key0="⚡" />
+        <key key0="🎉" />
+        <key key0="💯" />
+        <key key0="backspace" peso="2" />
+    </row>
+</teclado>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<teclado>
+    <row altura="0.65">
+        <key key0="undo" />
+        <key key0="redo" />
+        <key key0="tab" />
+        <key key0="page_up" />
+        <key key0="page_down" />
+        <key key0="alt"/>
+        <key key0="change_method" />
+    </row>
+</teclado>

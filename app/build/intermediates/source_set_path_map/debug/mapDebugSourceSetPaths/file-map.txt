@@ -1,0 +1,7 @@
+com.ncy.app-pngs-0 F:\PROYESTOS MARCO\MI_NCY\app\build\generated\res\pngs\debug
+com.ncy.app-resValues-1 F:\PROYESTOS MARCO\MI_NCY\app\build\generated\res\resValues\debug
+com.ncy.app-packageDebugResources-2 F:\PROYESTOS MARCO\MI_NCY\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.ncy.app-packageDebugResources-3 F:\PROYESTOS MARCO\MI_NCY\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.ncy.app-debug-4 F:\PROYESTOS MARCO\MI_NCY\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.ncy.app-debug-5 F:\PROYESTOS MARCO\MI_NCY\app\src\debug\res
+com.ncy.app-main-6 F:\PROYESTOS MARCO\MI_NCY\app\src\main\res
