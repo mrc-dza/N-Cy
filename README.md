@@ -20,10 +20,6 @@ Alternancia dinámica entre Dark, Light y Neon sin reiniciar el servicio IME.
 **Trackpad de cursor**
 Gestos sobre la barra espaciadora vía `VelocityTracker` para posicionamiento preciso del cursor.
 
-**Emulación de teclado físico**
-Teclas F1–F12, Inicio, Fin, Supr, flechas y modificadores Ctrl/Alt/Shift mediante `sendKeyEvent()`, compatible con editores web como CodeMirror.
-
-
 
 ## Arquitectura
 
