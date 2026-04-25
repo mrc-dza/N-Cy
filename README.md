@@ -1,33 +1,62 @@
-# N-Cy Keyboard ⌨️🚀
+# N-Cy Keyboard ⌨️
 
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![SDK](https://img.shields.io/badge/Min_SDK-30-blue?style=for-the-badge)
+![Min SDK](https://img.shields.io/badge/Min_SDK-30-blue?style=for-the-badge)
 
-**N-Cy Keyboard** es un teclado IME (Input Method Editor) nativo para Android, desarrollado desde cero en Java. Está diseñado bajo una filosofía de máxima eficiencia, centrándose en ser extremadamente ligero, rápido y altamente optimizado para dispositivos con recursos limitados.
+**N-Cy** es un teclado IME nativo para Android, desarrollado desde cero en Java puro. Diseñado para ser extremadamente ligero y rápido, sin dependencias de terceros, con foco en dispositivos de recursos limitados.
 
-## ✨ Características Principales
+## Características
 
-* ⚡ **Rendimiento Ultraligero:** Arquitectura de renderizado optimizada que minimiza la recolección de basura (Garbage Collection) y evita llamadas redundantes al sistema (`requestLayout`), garantizando 60 FPS estables.
-* 📋 **Gestor de Portapapeles Integrado:** Historial nativo avanzado con fijación de items. Procesado en memoria y con un ciclo de vida seguro que evita hilos zombis (Memory Leaks).
-* 🎨 **Motor de Temas Dinámico:** Soporte nativo para alternar entre estilos visuales (Oscuro, Claro, Neón Verde) sin retrasos visuales ni necesidad de reiniciar el servicio.
-* 🖱️ **Navegación Continua (Trackpad):** Sistema de gestos basado en `VelocityTracker` optimizado, permitiendo control preciso del cursor al deslizar sobre la barra espaciadora.
-* 💻 **Simulador de Hardware Físico:** Mapeo avanzado de teclas (F1-F12, Inicio, Fin, Supr, teclas direccionales) y modificadores (Ctrl, Alt, Shift) para emular la experiencia completa de un teclado de PC.
-* 🛠️ **Autocierre Inteligente:** Algoritmo eficiente para el manejo automático de pares de caracteres `()`, `[]`, `{}`, `""`.
+**Rendimiento**
+Renderizado por Canvas personalizado (`DibujanteTecla`, `DibujanteGestos`) que evita `requestLayout` innecesarios y minimiza la presión sobre el GC. Target: 60 FPS estables en hardware modesto.
 
-## 🏗️ Arquitectura y Tecnologías
+**Gestor de portapapeles**
+Historial nativo con fijación de ítems. Ciclo de vida gestionado para evitar memory leaks y hilos zombis.
 
-El proyecto fue construido priorizando código limpio y patrones de diseño sólidos, evitando dependencias pesadas de terceros:
+**Motor de temas**
+Alternancia dinámica entre Dark, Light y Neon sin reiniciar el servicio IME.
 
-* **Lenguaje:** Java puro (Android SDK).
-* **UI:** XML clásico con layouts aplanados para reducir los tiempos de medición e inflado.
-* **Gestión de Estado:** Implementación del patrón *Repositorio* (`RepositorioConfiguracion`) para centralizar el acceso a las `SharedPreferences`.
-* **Servicio:** Implementación directa y optimizada de `InputMethodService`.
+**Trackpad de cursor**
+Gestos sobre la barra espaciadora vía `VelocityTracker` para posicionamiento preciso del cursor.
 
-## 🚀 Instalación y Compilación
+**Emulación de teclado físico**
+Teclas F1–F12, Inicio, Fin, Supr, flechas y modificadores Ctrl/Alt/Shift mediante `sendKeyEvent()`, compatible con editores web como CodeMirror.
 
-Para compilar este proyecto localmente, necesitas Android Studio o Visual Studio Code con el SDK de Android configurado.
 
-1. **Clonar el repositorio:**
-   ```bash
-   git clone [https://github.com/mrc-dza/N-Cy.git](https://github.com/mrc-dza/N-Cy.git)
+
+## Arquitectura
+
+| Componente | Descripción |
+|---|---|
+| `InputMethodService` | Servicio base del IME, sin wrappers intermedios |
+| `DibujanteTecla` | Renderizado de teclas sobre Canvas con soporte de densidad (dp→px) |
+| `DibujanteGestos` | Manejo visual de gestos y feedback táctil |
+| `RepositorioConfiguracion` | Patrón Repositorio sobre `SharedPreferences` |
+| `ManejadorEdicion` | Lógica de edición e inyección de texto |
+| `GestorPortapapeles` | Historial de portapapeles con ciclo de vida seguro |
+| `GestorTema` | Gestión centralizada de temas visuales |
+| `CalculadorLayout` | Cálculo de dimensiones en función del display |
+
+Internamente se usan tablas de lookup (`String.indexOf()`) en lugar de `switch` para operaciones frecuentes, reduciendo overhead en el hilo de entrada.
+
+## Requisitos
+
+- Android **API 30** (Android 11) o superior
+- Android Studio Hedgehog o posterior (para compilar)
+- JDK 11+
+
+## Instalación
+
+```bash
+git clone https://github.com/mrc-dza/N-Cy.git
+cd N-Cy
+```
+
+Abrir el proyecto en Android Studio, sincronizar Gradle y ejecutar en un dispositivo o emulador con API ≥ 30.
+
+Para activar el teclado:
+1. Ajustes → Sistema → Idioma e introducción de texto → Teclado en pantalla
+2. Activar **N-Cy Keyboard**
+3. Seleccionarlo como teclado predeterminado
+
