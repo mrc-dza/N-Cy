@@ -23,6 +23,7 @@ public class VistaTeclado extends LinearLayout {
     private final VistaTeclasXml        vistaTeclasXml;
     private final LinearLayout          contenedorPortapapeles;
     private final ReconstruibleTeclado  callbackReconstruccion;
+    private boolean reconstruccionPendiente = false;
 
     private ModoTeclado modoActualMostrado = null;
     private int anchoAnterior = -1;
@@ -56,6 +57,16 @@ public class VistaTeclado extends LinearLayout {
 
         addView(vistaTeclasXml, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         addView(contenedorPortapapeles);
+    }
+
+    private void solicitarReconstruccion() {
+        if (!reconstruccionPendiente) {
+            reconstruccionPendiente = true;
+            post(() -> {
+                reconstruccionPendiente = false;
+                reconstruirYRedibujar();
+            });
+        }
     }
 
     // MODIFICADO: Ahora vaciamos el contenedor del portapapeles
@@ -95,7 +106,7 @@ public class VistaTeclado extends LinearLayout {
 
             if (contenedorPortapapeles.getChildCount() == 0) {
                 new ConstructorVistaPortapapeles(getContext(), manejador, estado, manejadorPortapapeles, layout)
-                        .ensamblar(contenedorPortapapeles, this::reconstruirYRedibujar, anchoPantalla);
+                        .ensamblar(contenedorPortapapeles, this::solicitarReconstruccion, anchoPantalla);
             }
         } else {
             contenedorPortapapeles.setVisibility(GONE);
@@ -110,11 +121,10 @@ public class VistaTeclado extends LinearLayout {
         contenedorPortapapeles.invalidate();
     }
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (estado.obtenerModoActual() != modoActualMostrado) {
-            post(() -> reconstruirYRedibujar());
+            solicitarReconstruccion();
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

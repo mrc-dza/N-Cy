@@ -8,6 +8,9 @@ import com.ncy.utilidades.TemaVisual;
 
 public class TeclaAccion extends Tecla {
 
+    private InfoVisual infoCache;
+    private int colorFondoCache;
+    private boolean cacheValido = false;
     private final String etiqueta;
 
     public TeclaAccion(int codigo, String etiqueta) {
@@ -22,23 +25,28 @@ public class TeclaAccion extends Tecla {
     @Override
     public InfoVisual obtenerInfoVisual(EstadoTeclado estado) {
         TemaVisual tema = GestorTema.getInstance().obtenerTemaActivo();
+        
+        int colorFondo = (codigo == Constantes.CODIGO_ENTER) ? 
+                         tema.getColorTeclaEnter() : tema.getColorTeclaAccion();
 
-        // Caso especial: tecla Enter
-        if (codigo == Constantes.CODIGO_ENTER && estado != null) {
-            int accion = estado.obtenerAccionIme();
-            if (!estado.isMultilinea()
-                    && accion != EditorInfo.IME_ACTION_NONE
-                    && accion != EditorInfo.IME_ACTION_UNSPECIFIED) {
-                return resolverEnterDinamico(accion, tema);
+        if (!cacheValido || colorFondoCache != colorFondo) {
+            if (codigo == Constantes.CODIGO_ENTER && estado != null) {
+                int accion = estado.obtenerAccionIme();
+                if (!estado.isMultilinea()
+                        && accion != EditorInfo.IME_ACTION_NONE
+                        && accion != EditorInfo.IME_ACTION_UNSPECIFIED) {
+                    infoCache = resolverEnterDinamico(accion, tema);
+                } else {
+                    infoCache = new InfoVisual(tema.getColorTeclaEnter(), "↵", false, obtenerIconoResId());
+                }
+            } else {
+                boolean textoLargo = etiqueta.length() > 3;
+                infoCache = new InfoVisual(tema.getColorTeclaAccion(), etiqueta, textoLargo, obtenerIconoResId());
             }
-            
-            // Enter normal
-            return new InfoVisual(tema.getColorTeclaEnter(), "↵", false, obtenerIconoResId());
+            colorFondoCache = colorFondo;
+            cacheValido = true;
         }
-
-        // Resto de acciones (Borrar, Espacio, etc.)
-        boolean textoLargo = etiqueta.length() > 3;
-        return new InfoVisual(tema.getColorTeclaAccion(), etiqueta, textoLargo, obtenerIconoResId());
+        return infoCache;
     }
 
     private InfoVisual resolverEnterDinamico(int accion, TemaVisual tema) {
@@ -50,5 +58,9 @@ public class TeclaAccion extends Tecla {
             case EditorInfo.IME_ACTION_GO:     return new InfoVisual(tema.getColorTeclaEnter(), "Ir",     true, Constantes.ICONO_IME_GO);
             default:                           return new InfoVisual(tema.getColorTeclaEnter(), "↵",      false, 0);
         }
+    }
+
+    public void invalidarCache() {
+        cacheValido = false;
     }
 }

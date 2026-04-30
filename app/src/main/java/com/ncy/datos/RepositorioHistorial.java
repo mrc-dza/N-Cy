@@ -41,12 +41,22 @@ public class RepositorioHistorial {
         
         editor.putInt(claveTotal, lista.size());
         
+        StringBuilder sb = new StringBuilder(prefijo.length() + 3);
+        
         for (int i = 0; i < lista.size(); i++) {
-            editor.putString(prefijo + i, lista.get(i));
+            sb.setLength(0);
+            sb.append(prefijo).append(i);
+            editor.putString(sb.toString(), lista.get(i));
         }
         
+        sb.setLength(0);
+        sb.append(prefijo);
+        int base = sb.length();
+        
         for (int i = lista.size(); i < maxItems; i++) {
-            editor.remove(prefijo + i);
+            sb.setLength(base);
+            sb.append(i);
+            editor.remove(sb.toString());
         }
     }
 

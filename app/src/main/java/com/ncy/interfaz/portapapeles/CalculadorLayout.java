@@ -12,7 +12,7 @@ public class CalculadorLayout {
     public final int ALTO_SECCION;
     public final int ESPACIO_ENTRE;
     
-    public static final int MAX_LINEAS_FIJO = 3;
+    public static final int MAX_LINEAS_FIJO = 4;
     public static final int MAX_LINEAS_TEMP = 10;
 
     private final ProcesadorTexto procesador;
@@ -26,18 +26,16 @@ public class CalculadorLayout {
     public List<List<String>> getLineasTemporales() { return lineasTemporales; }
     public List<List<String>> getLineasFijadas() { return lineasFijadas; }
 
-    
     public CalculadorLayout(ProcesadorTexto procesador, Paint pinturaTexto, float densidad) {
         this.procesador = procesador;
-        this.pinturaTexto = pinturaTexto;
+        this.pinturaTexto = new Paint(pinturaTexto);
         
         this.PADDING_H = (int) (24 * densidad);
-        this.PADDING_V = (int) (16 * densidad);
+        this.PADDING_V = (int) (6 * densidad);
         
-        // REDUCIDO: De 72 a 48 (Mejora la estética y amplía el área de texto)
         this.ANCHO_BOTON = (int) (48 * densidad); 
-        this.ALTO_SECCION = (int) (52 * densidad);
-        this.ESPACIO_ENTRE = (int) (12 * densidad);
+        this.ALTO_SECCION = (int) (30 * densidad);
+        this.ESPACIO_ENTRE = (int) (4 * densidad);
     }
 
     public void recalcular(List<String> temps, List<String> fijos, int anchoVista) {

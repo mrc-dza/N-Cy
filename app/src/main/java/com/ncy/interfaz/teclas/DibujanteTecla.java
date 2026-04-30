@@ -55,12 +55,17 @@ public class DibujanteTecla {
     public void actualizarTema(TemaVisual nuevoTema) {
         this.tema = nuevoTema;
         
-        this.pinturaTexto = construirPinturaTexto(tema.getColorTextoPrincipal(), tema.getTamanioTextoTecla() * densidadTexto);
-        this.pinturaEspecial = construirPinturaTexto(tema.getColorTextoEspecial(), tema.getTamanioTextoEspecial() * densidadTexto);
+        this.pinturaTexto.set(construirPinturaTexto(tema.getColorTextoPrincipal(), tema.getTamanioTextoTecla() * densidadTexto));
+        this.pinturaEspecial.set(construirPinturaTexto(tema.getColorTextoEspecial(), tema.getTamanioTextoEspecial() * densidadTexto));
         
         Paint pinturaGesto = construirPinturaTexto(tema.getColorAcento(), tema.getTamanioTextoGesto() * densidadTexto);
         Paint pinturaGestoActivo = construirPinturaTexto(tema.getColorGestoActivo(), tema.getTamanioTextoGestoActivo() * densidadTexto);
-        this.dibujanteGestos = new DibujanteGestos(pinturaGesto, pinturaGestoActivo, cache, resolvedorIme, densidadGrafica);
+        
+        if (this.dibujanteGestos != null) {
+            this.dibujanteGestos.actualizarPinturas(pinturaGesto, pinturaGestoActivo);
+        } else {
+            this.dibujanteGestos = new DibujanteGestos(pinturaGesto, pinturaGestoActivo, cache, resolvedorIme, densidadGrafica);
+        }
         
         this.cache.limpiar();
     }

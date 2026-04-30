@@ -1,40 +1,27 @@
 package com.ncy.utilidades;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import com.ncy.datos.RepositorioConfiguracion;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-public class GestorTema {
+public class GestorTema extends GestorTemaBase<TemaVisual> {
 
     private static class Holder {
         static final GestorTema INSTANCIA = new GestorTema();
     }
-    
-    private RepositorioConfiguracion repositorio;
-   
-    private final Map<String, TemaVisual> temas = new LinkedHashMap<>();
-    private TemaVisual temaActivo;
-    private String idTemaActivo;
-    private Context contextoApp;
 
     public interface OnTemaCambiadoListener {
         void onTemaCambiado(TemaVisual nuevoTema);
     }
 
-
-    private final List<OnTemaCambiadoListener> oyentes = new java.util.concurrent.CopyOnWriteArrayList<>();
-
+    private final List<OnTemaCambiadoListener> oyentes = new CopyOnWriteArrayList<>();
 
     private GestorTema() {
         temas.put("oscuro", new TemaOscuro());
-        temas.put("claro", new TemaClaro()); 
+        temas.put("claro", new TemaClaro());
         temas.put("neon verde", new TemaNeonVerde());
 
-        idTemaActivo = "oscuro";
+        idTemaActivo = getIdDefecto();
         temaActivo = temas.get(idTemaActivo);
     }
 
@@ -42,24 +29,19 @@ public class GestorTema {
         return Holder.INSTANCIA;
     }
 
-    public void inicializar(Context contexto) {
-        this.contextoApp = contexto.getApplicationContext();
-        this.repositorio = new RepositorioConfiguracion(this.contextoApp); // Instanciamos el repositorio
-
-        String idGuardado = repositorio.leerIdTemaTeclado(); // Usamos el repositorio en lugar de SharedPreferences directamente
-
-        if (temas.containsKey(idGuardado)) {
-            idTemaActivo = idGuardado;
-            temaActivo = temas.get(idTemaActivo);
-        }
+    @Override
+    protected String leerIdGuardado(RepositorioConfiguracion repo) {
+        return repo.leerIdTemaTeclado();
     }
 
-    public TemaVisual obtenerTemaActivo() {
-        return temaActivo;
+    @Override
+    protected void guardarId(RepositorioConfiguracion repo, String id) {
+        repo.guardarIdTemaTeclado(id);
     }
 
-    public String[] obtenerTemasDisponibles() {
-        return temas.keySet().toArray(new String[0]);
+    @Override
+    protected String getIdDefecto() {
+        return "oscuro";
     }
 
     public void cambiarTema(String idTema) {
@@ -67,13 +49,12 @@ public class GestorTema {
             return;
         }
 
-        
-
         idTemaActivo = idTema;
         temaActivo = temas.get(idTema);
 
         if (contextoApp != null) {
-            repositorio.guardarIdTemaTeclado(idTema); // Usamos el método del repositorio
+            RepositorioConfiguracion repo = new RepositorioConfiguracion(contextoApp);
+            guardarId(repo, idTema);
         }
 
         for (OnTemaCambiadoListener oyente : oyentes) {

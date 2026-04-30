@@ -15,6 +15,7 @@ public class DibujanteGestos {
     private final CacheDrawables cache;
     private final ResolvedorIconoIme resolvedorIme;
     private final float densidad;
+    private final float[] coordsReusables = new float[2];
 
     public DibujanteGestos(Paint pinturaGesto, Paint pinturaGestoActivo,
                             CacheDrawables cache, ResolvedorIconoIme resolvedorIme, float densidad) {
@@ -57,38 +58,35 @@ public class DibujanteGestos {
         }
     }
 
-    // Devuelve [x, y] de la pista según el índice de gesto (1–8) usando proporciones
     private float[] calcularCoordenadas(Tecla t, int indice) {
         int rx = t.obtenerX(), ry = t.obtenerY();
         int rw = t.obtenerAncho(), rh = t.obtenerAlto();
 
-        // X Relativo: 15% del borde izquierdo, Centro exacto, 85% (15% del borde derecho)
         float xLeft   = rx + (rw * 0.15f);
         float xCenter = rx + (rw * 0.50f);
         float xRight  = rx + (rw * 0.85f);
 
-        // Y Relativo: 28% (Arriba), 60% (Medio), 88% (Abajo)
         float yTop    = ry + (rh * 0.28f);
         float yMid    = ry + (rh * 0.60f);
         float yBottom = ry + (rh * 0.88f);
 
         switch (indice) {
-            case 1: return new float[]{ xLeft,   yTop };    // Arriba Izquierda (NW)
-            case 7: return new float[]{ xCenter, yTop };    // Arriba Centro (N)
-            case 2: return new float[]{ xRight,  yTop };    // Arriba Derecha (NE)
+            case 1: coordsReusables[0] = xLeft;   coordsReusables[1] = yTop;    break;
+            case 7: coordsReusables[0] = xCenter; coordsReusables[1] = yTop;    break;
+            case 2: coordsReusables[0] = xRight;  coordsReusables[1] = yTop;    break;
             
-            case 5: return new float[]{ xLeft,   yMid };    // Medio Izquierda (W)
-            case 6: return new float[]{ xRight,  yMid };    // Medio Derecha (E)
+            case 5: coordsReusables[0] = xLeft;   coordsReusables[1] = yMid;    break;
+            case 6: coordsReusables[0] = xRight;  coordsReusables[1] = yMid;    break;
             
-            case 3: return new float[]{ xLeft,   yBottom }; // Abajo Izquierda (SW)
-            case 8: return new float[]{ xCenter, yBottom }; // Abajo Centro (S)
-            case 4: return new float[]{ xRight,  yBottom }; // Abajo Derecha (SE)
+            case 3: coordsReusables[0] = xLeft;   coordsReusables[1] = yBottom; break;
+            case 8: coordsReusables[0] = xCenter; coordsReusables[1] = yBottom; break;
+            case 4: coordsReusables[0] = xRight;  coordsReusables[1] = yBottom; break;
             
-            default: return new float[]{ 0, 0 };
+            default: coordsReusables[0] = 0;      coordsReusables[1] = 0;
         }
+        return coordsReusables;
     }
 
-    
 
     private void configurarAlineacion(int indice) {
         switch (indice) {
@@ -119,5 +117,10 @@ public class DibujanteGestos {
         float top = coordY - ih * 0.85f;
         icono.setBounds((int) left, (int) top, (int)(left + iw), (int)(top + ih));
         icono.draw(lienzo);
+    }
+
+    public void actualizarPinturas(Paint gesto, Paint gestoActivo) {
+        this.pinturaGesto.set(gesto);
+        this.pinturaGestoActivo.set(gestoActivo);
     }
 }

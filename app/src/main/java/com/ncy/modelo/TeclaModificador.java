@@ -7,6 +7,9 @@ import com.ncy.utilidades.TemaVisual;
 public class TeclaModificador extends Tecla {
 
     private final String etiqueta;
+    private InfoVisual infoCacheActivo;
+    private InfoVisual infoCacheApagado;
+    private boolean cacheValido = false;
 
     public TeclaModificador(int codigo, String etiqueta) {
         super(codigo);
@@ -22,24 +25,30 @@ public class TeclaModificador extends Tecla {
         TemaVisual tema = GestorTema.getInstance().obtenerTemaActivo();
         boolean encendido = estado != null && estado.isModificadorActivo(codigo);
         
-        if (encendido) {
-            // AÑADIDO: Pasamos el color específico del texto/icono cuando la tecla está activa
-            return new InfoVisual(
+        if (!cacheValido) {
+            infoCacheActivo = new InfoVisual(
                 tema.getColorTeclaModActivo(), 
                 etiqueta, 
                 true, 
                 obtenerIconoResId(), 
-                tema.getColorTextoModActivo() // <--- El nuevo color personalizado
+                tema.getColorTextoModActivo()
             );
-        } else {
-            // Cuando está apagado, usa el constructor tradicional (colorPersonalizado = null)
-            return new InfoVisual(
+            
+            infoCacheApagado = new InfoVisual(
                 tema.getColorTextoModApagado(), 
                 etiqueta, 
                 false, 
                 obtenerIconoResId()
             );
+            cacheValido = true;
         }
+        
+        return encendido ? infoCacheActivo : infoCacheApagado;
+    }
+
+    
+    public void invalidarCache() {
+        cacheValido = false;
     }
 
     

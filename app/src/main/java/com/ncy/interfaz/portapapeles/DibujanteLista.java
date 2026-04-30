@@ -119,12 +119,11 @@ public class DibujanteLista {
         return top + altoItem;
     }
 
-    
-
     private void dibujarLinea(Canvas canvas, int ancho, float y) {
-        canvas.drawLine(calculador.PADDING_H, y,
-                ancho - calculador.PADDING_H, y, pinturaSeparador);
+        // Empieza en 0 (borde izquierdo) y termina en 'ancho' (borde derecho)
+        canvas.drawLine(0, y, ancho, y, pinturaSeparador);
     }
+
 
     private void dibujarEncabezadoFijados(Canvas canvas, int ancho, float posY) {
         dibujarLinea(canvas, ancho, posY);
@@ -144,8 +143,8 @@ public class DibujanteLista {
     private void dibujarIcono(Canvas canvas, int ancho, float top, int altoItem, Drawable icono) {
         if (icono == null) return;
         
-        // REFACTORIZADO: Ahora usa dp (24 * densidad) y se pega a la derecha
-        int iconSize = (int) (24 * densidadGrafica);
+        // REFACTORIZADO: Ahora usa dp (20 * densidad) y se pega a la derecha
+        int iconSize = (int) (20 * densidadGrafica);
         int iconX = ancho - calculador.PADDING_H - iconSize;
         int iconY = (int)(top + altoItem / 2 - iconSize / 2);
         

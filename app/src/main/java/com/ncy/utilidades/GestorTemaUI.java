@@ -1,28 +1,18 @@
 package com.ncy.utilidades;
 
-import android.content.Context;
 import com.ncy.datos.RepositorioConfiguracion;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+public class GestorTemaUI extends GestorTemaBase<TemaVisualUI> {
 
-public class GestorTemaUI {
-    
     private static class Holder {
         static final GestorTemaUI INSTANCIA = new GestorTemaUI();
     }
-
-    private final Map<String, TemaVisualUI> temas = new LinkedHashMap<>();
-    private TemaVisualUI temaActivo;
-    private String idTemaActivo;
-    private Context contextoApp;
-    private RepositorioConfiguracion repositorio; 
 
     private GestorTemaUI() {
         temas.put("oscuro", new TemaOscuroUI());
         temas.put("claro", new TemaClaroUI());
         
-        idTemaActivo = "oscuro";
+        idTemaActivo = getIdDefecto();
         temaActivo = temas.get(idTemaActivo);
     }
 
@@ -30,32 +20,29 @@ public class GestorTemaUI {
         return Holder.INSTANCIA;
     }
 
-    
-    public void inicializar(Context contexto) {
-        this.contextoApp = contexto.getApplicationContext();
-        this.repositorio = new RepositorioConfiguracion(contextoApp); // Usamos el campo de la clase
-        String idGuardado = repositorio.leerIdTemaUI(); // Leemos directamente
-
-        if (temas.containsKey(idGuardado)) {
-            idTemaActivo = idGuardado;
-            temaActivo = temas.get(idTemaActivo);
-        }
+    @Override
+    protected String leerIdGuardado(RepositorioConfiguracion repo) {
+        return repo.leerIdTemaUI();
     }
 
-    public TemaVisualUI obtenerTemaActivo() {
-        return temaActivo;
+    @Override
+    protected void guardarId(RepositorioConfiguracion repo, String id) {
+        repo.guardarIdTemaUI(id);
     }
 
-    public boolean esOscuro() {
-        return "oscuro".equals(temaActivo.getNombre());
+    @Override
+    protected String getIdDefecto() {
+        return "oscuro";
     }
 
     public void alternarTema() {
-        idTemaActivo = esOscuro() ? "claro" : "oscuro";
-        temaActivo = temas.get(idTemaActivo);
+        String nuevoId = esOscuro() ? "claro" : "oscuro";
+        idTemaActivo = nuevoId;
+        temaActivo = temas.get(nuevoId);
         
-        if (repositorio != null) {
-            repositorio.guardarIdTemaUI(idTemaActivo);
+        if (contextoApp != null) {
+            RepositorioConfiguracion repo = new RepositorioConfiguracion(contextoApp);
+            guardarId(repo, nuevoId);
         }
     }
 }

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <teclado>
     <row altura="0.65">
+        <key key0="tab" />
+        <key key0="alt" />
+        <key key0="home" />
+        <key key0="end" />
+        <key key0="page_up" />   <!-- Scroll rápido hacia arriba -->
+        <key key0="page_down" /> <!-- Scroll rápido hacia abajo -->
+        <key key0="supr" />
         <key key0="undo" />
         <key key0="redo" />
-        <key key0="tab" />
-        <key key0="page_up" />
-        <key key0="page_down" />
-        <key key0="alt"/>
         <key key0="change_method" />
     </row>
 </teclado>
