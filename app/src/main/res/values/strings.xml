@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App UI -->
+    <string name="settings_theme_current">Tema actual: %1$s</string>
+    <string name="app_name">N-Cy</string>
+    <string name="main_subtitle">Privado, rápido y totalmente tuyo.</string>
+    <string name="main_step1_title">Habilitar en Ajustes</string>
+    <string name="main_step1_desc_off">Activa N-Cy en los ajustes del sistema</string>
+    <string name="main_step1_desc_on">Habilitado correctamente</string>
+    <string name="main_step1_btn_off">Abrir Ajustes →</string>
+    <string name="main_step2_title">Seleccionar N-Cy</string>
+    <string name="main_step2_desc">Elige N-Cy como teclado activo</string>
+    <string name="main_step2_btn_off">Pendiente</string>
+    <string name="main_step2_btn_on">Seleccionar →</string>
+    <string name="main_banner_active">N-Cy está activo y listo</string>
+
+    <!-- Settings UI -->
+    <string name="settings_title"> Configuraciones</string>
+    <string name="settings_theme_title">Tema del Teclado</string>
+    <string name="settings_vibration_title">Vibrar al pulsar</string>
+    <string name="settings_vibration_desc">Respuesta háptica en las teclas</string>
+    <string name="settings_bar_title">Barra de herramientas</string>
+    <string name="settings_bar_desc">Mostrar atajos en la parte superior</string>
+    <string name="settings_caps_title">Mayúsculas automáticas</string>
+    <string name="settings_caps_desc">Iniciar oraciones con mayúscula</string>
+    <string name="settings_height_title">Altura del Teclado</string>
+    <string name="settings_height_desc">Ajusta el tamaño vertical de las teclas.</string>
+
+    <!-- Teclas y Gestos (KeyLabelProvider) -->
+    <string name="key_copy">Copiar</string>
+    <string name="key_paste">Pegar</string>
+    <string name="key_clear">Limpiar</string>
+    <string name="key_space">ESPACIO</string>
+    <string name="key_select_all">Sel</string>
+    <string name="key_enter">↵</string>
+    <string name="key_tab">Tab</string>
+    <string name="key_cut">Cortar</string>
+    <string name="key_paste_plain">Pegar Limpio</string>
+    <string name="key_home">Inicio</string>
+    <string name="key_end">Fin</string>
+    <string name="key_insert">Ins</string>
+    <string name="key_delete">Supr</string>
+    <string name="key_scroll_lock">ScrLk</string>
+    
+    <!-- Acciones IME Dinámicas -->
+    <string name="ime_search">Buscar</string>
+    <string name="ime_send">Env.</string>
+    <string name="ime_next">Sig.</string>
+    <string name="ime_done">Listo</string>
+    <string name="ime_go">Ir</string>
+</resources>
