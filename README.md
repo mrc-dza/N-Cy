@@ -15,7 +15,7 @@ Renderizado mediante Canvas personalizado (`DibujanteTecla`, `DibujanteGestos`),
 Historial nativo (`GestorPortapapeles`) con fijación de ítems y persistencia mediante `RepositorioHistorial`. Escucha el portapapeles del sistema a través de `EscuchadorPortapapelesSistema`, con ciclo de vida gestionado para evitar listeners huérfanos.
 
 **Motor de temas**
-`GestorTema` administra la alternancia entre temas (Oscuro, Claro, Neon Verde, NES) sin reiniciar el servicio IME, aplicando los cambios directamente sobre la vista activa.
+`GestorTema` administra la alternancia entre temas (Oscuro, Claro) sin reiniciar el servicio IME, aplicando los cambios directamente sobre la vista activa.
 
 **Trackpad de cursor**
 Gestos sobre la barra espaciadora mediante `VelocityTracker` (implementado en `ControladorToqueXml`), permitiendo posicionamiento preciso del cursor sin necesidad de interactuar directamente con el campo de texto.
@@ -64,7 +64,3 @@ Para activar el teclado:
 ## Estado del proyecto
 
 Versión actual: 1.0.0 (versionCode 2). El proyecto no declara dependencias externas: temas, portapapeles y renderizado están implementados únicamente con el SDK de Android.
-
-## Licencia
-
-Especificar aquí el tipo de licencia bajo la cual se distribuye el proyecto.
